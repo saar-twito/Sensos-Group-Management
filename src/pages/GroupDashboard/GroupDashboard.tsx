@@ -1,41 +1,12 @@
-import React, { useState } from 'react'
-import { useDrag, useDrop, DndProvider } from 'react-dnd'
+import { useState } from 'react'
+import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { IGroup, IDraggableGroup } from '../../interfaces/Group/interface'
+import { IGroup } from '../../interfaces/Group/interface'
 import style from './style.module.scss'
+import DraggableGroup from '../../components/DraggableGroup/DraggableGroup'
+import GroupForm from '../../components/GroupForm/GroupForm'
+import SectionHeader from '../../components/SectionHeader/SectionHeader'
 
-const ItemType = 'GROUP'
-
-const DraggableGroup: React.FC<IDraggableGroup> = ({ group, index, moveGroup }) => {
-  const [, ref] = useDrop({
-    accept: ItemType,
-    hover: (draggedItem: { index: number }) => {
-      if (draggedItem.index !== index) {
-        moveGroup(draggedItem.index, index)
-        draggedItem.index = index
-      }
-    },
-  })
-
-  const [{ isDragging }, drag] = useDrag({
-    type: ItemType,
-    item: { index },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  })
-
-  return (
-    <tr
-      ref={(node) => drag(ref(node))}
-    >
-      <td className={style.priority}>{group.id}</td>
-      <td className={`${style.roundedLeft} ${style.dragHandle} ${style.gray}`}>☰</td>
-      <td className={`${style.gray}`}>{group.name}</td>
-      <td className={`${style.roundedRight} ${style.gray}`}>{group.description}</td>
-    </tr>
-  )
-}
 
 const GroupDashboard = () => {
   const [groups, setGroups] = useState<IGroup[]>([
@@ -43,6 +14,15 @@ const GroupDashboard = () => {
     { id: 2, name: 'Group 2', description: 'This is group 2' },
     { id: 3, name: 'Group 3', description: 'This is group 3' }
   ])
+
+  const addGroup = (name: string, description: string) => {
+    const newGroup = {
+      id: groups.length + 1,
+      name,
+      description,
+    }
+    setGroups([...groups, newGroup])
+  }
 
   const moveGroup = (dragIndex: number, hoverIndex: number) => {
     const draggedGroup = groups[dragIndex]
@@ -61,29 +41,38 @@ const GroupDashboard = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={style.container}>
-        <h1>Groups</h1>
-        <hr />
+        <SectionHeader
+          title="Create a new group"
+          description={'The "Create a New Group" form makes it easy to add a new group. Just enter a name and description, hit "Add Group," and it pops up at the bottom of the list. Simple and smooth!'} />
+        <GroupForm addGroup={addGroup} />
 
-        <table className={style.table}>
-          <thead>
-            <tr>
-              <th style={{ width: 0 }}></th>
-              <th style={{ width: 0 }}></th>
-              <th>Name</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {groups.map((group, index) => (
-              <DraggableGroup
-                key={group.id}
-                index={index}
-                group={group}
-                moveGroup={moveGroup}
-              />
-            ))}
-          </tbody>
-        </table>
+        <>
+          <SectionHeader
+            title="List of all groups"
+            description={'The "List of All Groups" displays all the groups you\'ve added, organized by priority. You can easily rearrange them by dragging the handle beside each group. The list is clean and easy to navigate, ensuring you can manage your groups effortlessly.'} />
+
+          <table className={style.table}>
+            <thead>
+              <tr>
+                <th style={{ width: 0 }}></th>
+                <th style={{ width: 0 }}></th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groups.map((group, index) => (
+                <DraggableGroup
+                  key={group.id}
+                  index={index}
+                  group={group}
+                  moveGroup={moveGroup}
+                />
+              ))}
+            </tbody>
+          </table>
+        </>
+
       </div>
     </DndProvider>
   )

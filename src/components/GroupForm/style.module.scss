@@ -1,0 +1,40 @@
+@use "../../style/variables" as *;
+@use "../../style/colors" as *;
+
+.form {
+  margin-bottom: $padding-large;
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: $padding-small;
+
+  label {
+    margin-bottom: $padding-small;
+    display: block;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: $padding-small;
+    border-radius: $border-radius-small;
+    border: 1px solid darken($secondary-color, 5%);
+  }
+}
+
+.submitButton {
+  padding: 8px 15px;
+  border-radius: 3px;
+  background-color: #2196f3;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: lighten(#2196f3, 5%);
+  }
+}

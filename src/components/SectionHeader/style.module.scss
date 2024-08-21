@@ -1,0 +1,20 @@
+@use "../../style/variables" as *;
+@use "../../style/colors" as *;
+
+.sectionHeader {
+  h2 {
+    margin-bottom: 3px;
+  }
+  p {
+    max-width: 400px;
+    color: $grey;
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+
+  hr {
+    margin-bottom: $padding-large;
+    border: none;
+    border-top: 1px solid darken($secondary-color, 3%);
+  }
+}
