@@ -1,0 +1,55 @@
+@use "../../style/colors" as *;
+@use "../../style/variables" as *;
+
+.container {
+  h1 {
+    margin-bottom: 3px;
+  }
+
+  hr {
+    margin-bottom: $padding-large;
+    border: none;
+    border-top: 1px solid darken($secondary-color, 3%);
+  }
+}
+
+.table {
+  box-shadow: rgba(0, 0, 0, 0.15) -3px 3px 10px;
+  border-spacing: 0px;
+  width: 100%;
+  border-spacing: 0px 10px;
+  background-color: $white;
+  padding: $padding-large;
+  border-radius: $border-radius-small;
+
+  td,
+  th {
+    text-align: left;
+    padding: $padding-small;
+  }
+
+  .priority {
+    padding-right: 25px;
+  }
+
+  .dragHandle {
+    cursor: move;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: lighten($secondary-color, 2%);
+    }
+  }
+
+  .gray {
+    background-color: $secondary-color;
+    padding: 15px $padding-small;
+  }
+
+  .roundedLeft {
+    border-radius: $border-radius-small 0 0 $border-radius-small;
+  }
+
+  .roundedRight {
+    border-radius: 0 $border-radius-small $border-radius-small 0;
+  }
+}

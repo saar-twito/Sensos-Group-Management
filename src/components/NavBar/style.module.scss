@@ -1,0 +1,18 @@
+.link {
+  list-style-type: none;
+  background: #ebeef0;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  transition: 0.3s;
+  margin-bottom: 50px;
+  &:hover {
+    background: #d6d8d9;
+  }
+
+  a {
+    color: darkblue;
+    text-decoration: none;
+  }
+}

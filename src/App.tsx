@@ -1,26 +1,26 @@
+// src/App.js
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import GroupDashboard from './pages/GroupDashboard/GroupDashboard';
+import GroupDetails from './pages/GroupOverview/GroupOverview';
+import NotFound from './pages/NotFound/NotFound';
+import NavBar from './components/NavBar/NavBar';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<GroupDashboard />} />
+          <Route path="/group/:id" element={<GroupDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </div>
+
   );
-}
+};
 
 export default App;
