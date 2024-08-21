@@ -22,6 +22,10 @@
   padding: $padding-large;
   border-radius: $border-radius-small;
 
+  @media screen and (max-width: 600px) {
+    padding: 10px;
+  }
+
   td,
   th {
     text-align: left;

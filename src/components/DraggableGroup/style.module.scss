@@ -4,6 +4,9 @@
 .row {
   .priority {
     padding-right: 25px;
+    @media screen and (max-width: 600px) {
+      padding-right: 10px;
+    }
   }
 
   .dragHandle {
