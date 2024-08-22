@@ -2,6 +2,9 @@
 @use "../../style/variables" as *;
 
 .row {
+  &.dragging {
+    transform: scale(1.02); /* Slightly enlarges the row */
+  }
   .priority {
     padding-right: 25px;
     @media screen and (max-width: 600px) {

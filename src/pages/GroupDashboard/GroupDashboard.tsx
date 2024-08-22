@@ -9,8 +9,6 @@ import SectionHeader from '../../components/SectionHeader/SectionHeader'
 
 const groupsArray: IGroup[] = [
   { id: 1, name: 'Group 1', description: 'This is group 1', priority: 1 },
-  { id: 2, name: 'Group 2', description: 'This is group 2', priority: 2 },
-  { id: 3, name: 'Group 3', description: 'This is group 3', priority: 3 }
 ]
 
 const GroupDashboard = () => {
@@ -35,12 +33,18 @@ const GroupDashboard = () => {
     setGroups([...groups, newGroup])
   }
 
-  const moveGroup = (dragIndex: number, hoverIndex: number) => {
-    const draggedGroup = groups[dragIndex];
+
+  /**
+   * @description Function to move a group from one index to another in the list
+   * @param initialIndex is the start index of the dragged group from which it is moved initially
+   * @param hoverIndex is the index where the dragged group is currently hovering over
+   */
+  const moveGroup = (initialIndex: number, hoverIndex: number) => {
+    const draggedGroup = groups[initialIndex];
     const newGroups = [...groups];
 
     // Remove the dragged group from its original position
-    newGroups.splice(dragIndex, 1);
+    newGroups.splice(initialIndex, 1);
 
     // Insert the dragged group at the new position
     newGroups.splice(hoverIndex, 0, draggedGroup);

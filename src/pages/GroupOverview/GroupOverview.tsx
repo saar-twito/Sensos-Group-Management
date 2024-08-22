@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { IGroup } from '../../interfaces/Group/interface';
 import SectionHeader from '../../components/SectionHeader/SectionHeader';
 import style from './style.module.scss';
@@ -19,16 +19,22 @@ const GroupOverview = () => {
   }, [id]);
 
   return (
-    <div className={style.container}>
-      <SectionHeader title="Group Overview" description="Here you can view the full details of a group, including the Group ID, Group Name, Group Description, and Priority." />
+    <>
 
-      <div className={style.groupDetails}>
-        <p><span>Group's ID:</span> {selectedGroup?.id}</p>
-        <p><span>Group's Priority:</span> {selectedGroup?.priority}</p>
-        <p><span>Group's Name:</span> {selectedGroup?.name}</p>
-        <p><span>Group's Description:</span> {selectedGroup?.description}</p>
+      <div className={style.container}>
+
+        <SectionHeader title="Group Overview" description="Here you can view the full details of a group, including the Group ID, Group Name, Group Description, and Priority." />
+
+        <div className={style.groupDetails}>
+          <p><span>Group's ID:</span> {selectedGroup?.id}</p>
+          <p><span>Group's Priority:</span> {selectedGroup?.priority}</p>
+          <p><span>Group's Name:</span> {selectedGroup?.name}</p>
+          <p><span>Group's Description:</span> {selectedGroup?.description}</p>
+        </div>
+        <Link className={style.link} to="/">Back To Group Dashboard</Link>
       </div>
-    </div>
+    </>
+
   );
 };
 
