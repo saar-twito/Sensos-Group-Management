@@ -23,10 +23,10 @@
   }
 
   .roundedLeft {
-    border-radius: $border-radius-small 0 0 $border-radius-small;
+    border-radius: $border-radius 0 0 $border-radius;
   }
 
   .roundedRight {
-    border-radius: 0 $border-radius-small $border-radius-small 0;
+    border-radius: 0 $border-radius $border-radius 0;
   }
 }

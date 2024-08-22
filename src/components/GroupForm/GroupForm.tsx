@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import style from './style.module.scss'
+import { IoIosAdd } from "react-icons/io";
 
 interface IGroupFormProps {
   addGroup: (name: string, description: string) => void
@@ -25,6 +26,8 @@ const GroupForm = ({ addGroup }: IGroupFormProps) => {
         <input
           type="text"
           id="name"
+          minLength={2}
+          required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -34,11 +37,13 @@ const GroupForm = ({ addGroup }: IGroupFormProps) => {
         <input
           type="text"
           id="description"
+          minLength={10}
+          required
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-      <button type="submit" className={style.submitButton}>Add Group</button>
+      <button type="submit" className={style.submitButton}><IoIosAdd size={25} /> Add Group</button>
     </form>
   )
 }

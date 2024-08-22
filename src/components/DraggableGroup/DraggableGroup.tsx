@@ -2,46 +2,43 @@ import { useDrag, useDrop } from 'react-dnd'
 import { RxHamburgerMenu } from "react-icons/rx"
 import style from './style.module.scss'
 import { IDraggableGroup } from '../../interfaces/Group/interface'
+import { Link } from 'react-router-dom'
 
 // Define the item type constant for dragging and dropping
 const ItemType = 'GROUP'
 
-// DraggableGroup component handles the drag&drop functionality for a group
-const DraggableGroup = ({ group, index, moveGroup }: IDraggableGroup) => {
-  // useDrop hook allows the component to act as a drop target for draggable items
+const DraggableGroup = ({ group, index, moveGroup, number }: IDraggableGroup & { number: number }) => {
   const [, ref] = useDrop({
-    accept: ItemType, // Only accept items of type 'GROUP' 
+    accept: ItemType,
     hover: (draggedItem: { index: number }) => {
+      if (draggedItem.index === index) return;
 
-      // When a draggable item is hovered over this component (drop target)
-      if (draggedItem.index !== index) {
-        // Move the group if the dragged item is not already at this index position
-        moveGroup(draggedItem.index, index)
+      // Move the group only if the dragged item is hovering over a different position
+      moveGroup(draggedItem.index, index);
 
-        // Update the index of the dragged item to reflect the new position
-        draggedItem.index = index
-      }
+      // Immediately update the index of the dragged item to the new position
+      draggedItem.index = index;
     },
   })
 
-  // useDrag hook allows the component to act as a draggable
   const [{ isDragging }, drag] = useDrag({
-    type: ItemType, // Set the item type to 'GROUP'
-    item: { index }, // Pass the index of the item being dragged
+    type: ItemType,
+    item: { index },
     collect: (monitor) => ({
-      isDragging: monitor.isDragging(),  // Monitor dragging state to apply styles or other effects
+      isDragging: monitor.isDragging(),
     }),
   })
 
   return (
     <tr
       ref={(node) => drag(ref(node))}
-      className={`${style.row}`}
+      className={`${style.row} ${isDragging ? style.dragging : ''}`}  // Apply dragging style if needed
     >
-      <td className={style.priority}>{group.id}</td>
+      <td className={style.priority}>{number}</td>
       <td className={`${style.roundedLeft} ${style.dragHandle} ${style.gray}`}><RxHamburgerMenu /></td>
       <td className={`${style.gray}`}>{group.name}</td>
-      <td className={`${style.roundedRight} ${style.gray}`}>{group.description}</td>
+      <td className={`${style.gray}`}>{group.description}</td>
+      <td className={`${style.roundedRight} ${style.gray}`}><Link to={`/group/${group.id}`}>View Details</Link></td>
     </tr>
   )
 }
